@@ -152,6 +152,18 @@ Restart or save — Storybook picks up new `*.stories.tsx` files automatically.
 | Storybook fails after dependency changes                     | `rm -rf node_modules && npm install`, then `npm run storybook` again                                |
 | Red squiggles in `.storybook/` but build works               | Run `npx tsc --noEmit` — if clean, restart the TS server                                            |
 
+## Continuous integration
+
+GitHub Actions workflow: [`.github/workflows/ci.yml`](.github/workflows/ci.yml).
+
+| Job | Command(s) |
+| --- | ---------- |
+| Quality | `format:check`, `lint`, `test:ci`, `tsc --noEmit` |
+| Build app | `npm run build` |
+| Build Storybook | `npm run build-storybook` |
+
+Locally, `npm run validate` covers the same checks as the quality job (except `tsc --noEmit`). Run `npm run build` and `npm run build-storybook` before merging if you touched routes or stories.
+
 ## Code style
 
 - ESLint: `eslint.config.mjs` (Next.js + Prettier disambiguation)

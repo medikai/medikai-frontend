@@ -120,12 +120,28 @@ Stories live beside components as `*.stories.tsx`. The preview wraps stories wit
 
 ---
 
+## CI (GitHub Actions)
+
+On every push and pull request to `main`, [`.github/workflows/ci.yml`](./.github/workflows/ci.yml) runs:
+
+| Job | Checks |
+| --- | ------ |
+| **Quality** | Prettier, ESLint, Jest (`test:ci`), TypeScript (`tsc --noEmit`) |
+| **Build app** | `npm run build` (Next.js) |
+| **Build Storybook** | `npm run build-storybook` |
+
+Build jobs run **in parallel** after quality passes. In-progress runs on the same branch are cancelled when a newer commit is pushed.
+
+Enable on GitHub: open the repo → **Actions** tab → allow workflows if prompted, then push this file.
+
+---
+
 ## Contributing
 
 1. Create a branch from `main`
 2. Add or update tests for logic changes (`**/*.test.ts(x)`)
 3. Add Storybook stories for new UI components
-4. Run `npm run validate` before opening a pull request
+4. Run `npm run validate` before opening a pull request (matches the CI quality job locally)
 
 ---
 
